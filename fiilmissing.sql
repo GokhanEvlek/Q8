@@ -3,7 +3,7 @@ SET daily_vaccinations = subquery.median
 FROM (
   SELECT country, ROUND(PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY daily_vaccinations)) AS median
   FROM country_vaccination_stats
-  WHERE daily_vaccinations IS NOT NULL
+  WHERE daily_vaccinations IS NOT NULL -- It calculated median values which daily_vaccations is not null
   GROUP BY country
 ) AS subquery
 WHERE country_vaccination_stats.country = subquery.country AND country_vaccination_stats.daily_vaccinations IS NULL;
